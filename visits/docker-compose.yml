@@ -5,6 +5,7 @@ services:
     image: 'redis:latest'
   node-app:
     build: .
+    restart: always
     depends_on:
       - redis-server
     ports:
