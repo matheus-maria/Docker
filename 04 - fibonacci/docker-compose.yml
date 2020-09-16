@@ -17,6 +17,9 @@ services:
     restart: always
     ports:
       - 3000:80
+    depends_on:
+      - api
+      - client
 
   api:
     build:
@@ -33,6 +36,8 @@ services:
       - PGUSER=postgres
       - PGPASSWORD=postgres_password
       - PGDATABASE=postgres
+    depends_on:
+    - postgres
 
   client:
     build:
@@ -50,3 +55,6 @@ services:
     volumes:
       - /app/node_modules
       - ./worker:/app
+    environment:
+    - REDIS_HOST=redis
+    - REDIS_PORT=6379
